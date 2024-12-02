@@ -1,0 +1,5 @@
+<resources>
+    <string name="update_url"></string>
+    <string name="version_url">https://cdn.bihe0832.com/app/help/zapk.html</string>
+    <string name="message_url">https://cdn.bihe0832.com/app/msg/aaf_msg_debug.json</string>
+</resources>
