@@ -13,15 +13,18 @@ import android.view.View
 import com.bihe0832.android.common.debug.audio.DebugWAVListFragment
 import com.bihe0832.android.common.debug.audio.card.AudioData
 import com.bihe0832.android.lib.audio.AudioRecordConfig
+import com.bihe0832.android.lib.audio.record.AudioRecordManager
 import com.bihe0832.android.lib.file.FileUtils
+import com.bihe0832.android.lib.log.ZLog
 import com.bihe0832.android.lib.speech.DEFAULT_ENDPOINT_MODEL_DIR
 import com.bihe0832.android.lib.speech.DEFAULT_KWS_MODEL_DIR
 import com.bihe0832.android.lib.speech.getDefaultKeywordSpotterConfig
 import com.bihe0832.android.lib.speech.getDefaultOnlineRecognizerConfig
-import com.bihe0832.android.lib.speech.kws.KeywordSpotterManager
 import com.bihe0832.android.lib.speech.recognition.ASROfflineManager
 import com.bihe0832.android.lib.speech.recognition.ASROnlineManager
 import com.bihe0832.android.lib.thread.ThreadManager
+import com.bihe0832.android.lib.timer.BaseTask
+import com.bihe0832.android.lib.timer.TaskManager
 import com.k2fsa.sherpa.onnx.FeatureConfig
 import com.k2fsa.sherpa.onnx.OnlineModelConfig
 import com.k2fsa.sherpa.onnx.OnlineRecognizerConfig
@@ -33,14 +36,55 @@ class DebugWAVWithASRListFragment : DebugWAVListFragment() {
     private var hasInitSuccess = false
     private val mParaformerASROfflineManager by lazy { ASROfflineManager() }
     private val mSmallParaformerASROfflineManager by lazy { ASROfflineManager() }
-    private val mWhisperTinyASROfflineManager by lazy { ASROfflineManager() }
-    private val mWhisperBaseASROfflineManager by lazy { ASROfflineManager() }
+
+    //    private val mWhisperTinyASROfflineManager by lazy { ASROfflineManager() }
+//    private val mWhisperBaseASROfflineManager by lazy { ASROfflineManager() }
     private val mZipformerZH14ASROnlineManager by lazy { ASROnlineManager() }
     private val mZipformerBilingualZHENASROnlineManager by lazy { ASROnlineManager() }
-    private val mKeywordSpotterManager by lazy { KeywordSpotterManager() }
+//    private val mKeywordSpotterManager by lazy { KeywordSpotterManager() }
 
     override fun initView(view: View) {
         super.initView(view)
+        TaskManager.getInstance().addTask(object : BaseTask() {
+            val name = "fsfdsf"
+            override fun getMyInterval(): Int {
+                return 1
+            }
+
+            override fun getNextEarlyRunTime(): Int {
+                return 0
+            }
+
+            override fun run() {
+                ZLog.d(
+                    AudioRecordManager.TAG,
+                    "mASROfflineManager: ${mParaformerASROfflineManager.isReady()}"
+                )
+                ZLog.d(
+                    AudioRecordManager.TAG,
+                    "mASROfflineManager: ${mSmallParaformerASROfflineManager.isReady()}"
+                )
+
+                ZLog.d(
+                    AudioRecordManager.TAG,
+                    "mASROfflineManager: ${mZipformerZH14ASROnlineManager.isReady()}"
+                )
+                ZLog.d(
+                    AudioRecordManager.TAG,
+                    "mASROfflineManager: ${mZipformerBilingualZHENASROnlineManager.isReady()}"
+                )
+
+
+                if (mParaformerASROfflineManager.isReady() && mSmallParaformerASROfflineManager.isReady() && mZipformerZH14ASROnlineManager.isReady() && mZipformerBilingualZHENASROnlineManager.isReady()) {
+                    TaskManager.getInstance().removeTask(name)
+                }
+            }
+
+            override fun getTaskName(): String {
+                return name
+            }
+
+        })
         ThreadManager.getInstance().start {
             mZipformerZH14ASROnlineManager.initRecognizer(
                 context!!, getDefaultOnlineRecognizerConfig(
@@ -74,23 +118,23 @@ class DebugWAVWithASRListFragment : DebugWAVListFragment() {
                     context!!
                 )
             )
-            mWhisperBaseASROfflineManager.initRecognizer(
-                getASROfflineRecognizerConfig_whisper_base(
-                    context!!
-                )
-            )
-            mWhisperTinyASROfflineManager.initRecognizer(
-                getASROfflineRecognizerConfig_whisper_tiny(
-                    context!!
-                )
-            )
-
-            mKeywordSpotterManager.initRecognizer(
-                context!!, getDefaultKeywordSpotterConfig(
-                    AudioRecordConfig.DEFAULT_SAMPLE_RATE_IN_HZ, DEFAULT_KWS_MODEL_DIR
-                )
-            )
-            mKeywordSpotterManager.start("")
+//            mWhisperBaseASROfflineManager.initRecognizer(
+//                getASROfflineRecognizerConfig_whisper_base(
+//                    context!!
+//                )
+//            )
+//            mWhisperTinyASROfflineManager.initRecognizer(
+//                getASROfflineRecognizerConfig_whisper_tiny(
+//                    context!!
+//                )
+//            )
+//
+//            mKeywordSpotterManager.initRecognizer(
+//                context!!, getDefaultKeywordSpotterConfig(
+//                    AudioRecordConfig.DEFAULT_SAMPLE_RATE_IN_HZ, DEFAULT_KWS_MODEL_DIR
+//                )
+//            )
+//            mKeywordSpotterManager.start("")
             showResult("")
             hasInitSuccess = true
         }

@@ -34,7 +34,7 @@ ext.moduleInfo = [
     "APPTest"    : [
         "apidependenciesList": ["",
                                 "com.bihe0832.android:common-debug:6.21.12",
-                                "com.bihe0832.android:lib-asr-wrapper:6.21.10",
+                                "com.bihe0832.android:lib-asr-wrapper:6.21.13",
                                 "com.bihe0832.android:lib-sherpa-endpoint-model:6.16.7",
                                 "com.bihe0832.android:lib-sherpa-kws-model:6.16.7",
                                 "Application"
