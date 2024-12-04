@@ -5,13 +5,13 @@ import com.bihe0832.android.framework.ZixieContext
 import com.bihe0832.android.framework.constant.Constants
 import com.bihe0832.android.lib.gson.JsonHelper
 import com.bihe0832.android.lib.okhttp.wrapper.OkHttpWrapper
+import com.bihe0832.android.lib.okhttp.wrapper.convert.GsonConverterFactory
 import com.bihe0832.android.lib.okhttp.wrapper.getRequestBodyByJsonString
 import com.bihe0832.android.lib.request.URLUtils
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import org.json.JSONObject
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 
 /**
@@ -37,14 +37,6 @@ object AAFNetWorkApi {
         publicPara.append(URLUtils.HTTP_REQ_ENTITY_JOIN).append(REQUEST_PARAM_APP_VERSION).append(URLUtils.HTTP_REQ_ENTITY_MERGE).append(ZixieContext.getVersionCode())
         publicPara.append(URLUtils.HTTP_REQ_ENTITY_JOIN).append(REQUEST_PARAM_PACKAGE_NAME).append(URLUtils.HTTP_REQ_ENTITY_MERGE).append(ZixieContext.applicationContext?.packageName)
         return URLUtils.marge(URLUtils.marge("$url", publicPara.toString()), param)
-    }
-
-    fun getRetrofit(url: String): Retrofit {
-        return Retrofit.Builder()
-                .client(mHttpClient)
-                .addConverterFactory(GsonConverterFactory.create(JsonHelper.getGson()))
-                .baseUrl(url)
-                .build()
     }
 
     fun getRetrofitWithoutJsonParse(url: String): Retrofit {

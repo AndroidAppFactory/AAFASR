@@ -11,6 +11,7 @@ import com.bihe0832.android.lib.router.annotation.APPMain
 import com.bihe0832.android.lib.router.annotation.Module
 import com.bihe0832.android.lib.sqlite.impl.CommonDBManager
 import com.bihe0832.android.lib.utils.os.BuildUtils
+import com.bihe0832.android.test.asr.R
 
 @APPMain
 @Module(RouterConstants.MODULE_NAME_DEBUG)

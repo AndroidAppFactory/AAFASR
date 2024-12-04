@@ -33,18 +33,19 @@ ext.moduleInfo = [
 
     "APPTest"    : [
         "apidependenciesList": ["",
-                                "com.bihe0832.android:common-debug:6.9.7",
+                                "com.bihe0832.android:common-debug:6.21.12",
+                                "com.bihe0832.android:lib-asr-wrapper:6.21.10",
+                                "com.bihe0832.android:lib-sherpa-endpoint-model:6.16.7",
+                                "com.bihe0832.android:lib-sherpa-kws-model:6.16.7",
                                 "Application"
         ]
     ],
     "Application": [
         "apidependenciesList"    : [
-            "com.bihe0832.android:common-wrapper-min:6.9.7",
+            "com.bihe0832.android:common-wrapper:6.21.9",
 
         ],
         "specialdependenciesList": [
-            "debugApi"  : ["com.squareup.leakcanary:leakcanary-android:1.5.1"],
-            "releaseApi": ["com.squareup.leakcanary:leakcanary-android-no-op:1.5.1"],
             "kapt"      : ["com.bihe0832.android:lib-router-compiler:5.1.7"]
         ]
     ]

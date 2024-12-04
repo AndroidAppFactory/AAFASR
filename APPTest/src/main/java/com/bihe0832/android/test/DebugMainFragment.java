@@ -2,9 +2,11 @@ package com.bihe0832.android.test;
 
 import androidx.fragment.app.Fragment;
 
+import com.bihe0832.android.common.debug.audio.DebugWAVListFragment;
 import com.bihe0832.android.test.module.DebugCommonFragment;
 import com.bihe0832.android.test.module.DebugRouterFragment;
-import com.bihe0832.android.test.module.DebugTempFragment;
+import com.bihe0832.android.test.module.audio.DebugAudioFragment;
+import com.bihe0832.android.test.module.audio.asr.DebugRecordAndASRFragRecment;
 
 
 /**
@@ -12,30 +14,24 @@ import com.bihe0832.android.test.module.DebugTempFragment;
  */
 public class DebugMainFragment extends com.bihe0832.android.common.debug.DebugMainFragment {
 
-    private static final String TAB_FOR_DEV_COMMON = "通用调试";
-    private static final String TAB_FOR_DEV_TEMP = "临时调试";
-    private static final String TAB_FOR_ROUTER = "路由测试";
-    private static final String TAB_FOR_DEV = "开发测试";
+    private static final String TAB_AUDIO_PLAY = "音频播放";
+    private static final String TAB_ASR = "语音识别";
 
     public DebugMainFragment() {
         super(new String[]{
-                TAB_FOR_DEV_COMMON, TAB_FOR_DEV_TEMP, TAB_FOR_ROUTER
+                TAB_AUDIO_PLAY, TAB_ASR
         });
     }
 
     private final boolean isDev = true;
 
     protected Fragment getFragmentByIndex(String title) {
-        if (title.equals(TAB_FOR_DEV)) {
-            return new DebugTempFragment();
-        } else if (title.equals(TAB_FOR_DEV_TEMP)) {
-            return new DebugTempFragment();
-        } else if (title.equals(TAB_FOR_DEV_COMMON)) {
-            return new DebugCommonFragment();
-        } else if (title.equals(TAB_FOR_ROUTER)) {
-            return new DebugRouterFragment();
+      if (title.equals(TAB_AUDIO_PLAY)) {
+            return new DebugAudioFragment();
+        } else if (title.equals(TAB_ASR)) {
+            return new DebugRecordAndASRFragRecment();
         } else {
-            return new DebugCommonFragment();
+            return new DebugWAVListFragment();
         }
     }
 
