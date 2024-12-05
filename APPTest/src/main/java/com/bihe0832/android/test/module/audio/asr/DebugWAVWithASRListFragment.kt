@@ -17,8 +17,6 @@ import com.bihe0832.android.lib.audio.record.AudioRecordManager
 import com.bihe0832.android.lib.file.FileUtils
 import com.bihe0832.android.lib.log.ZLog
 import com.bihe0832.android.lib.speech.DEFAULT_ENDPOINT_MODEL_DIR
-import com.bihe0832.android.lib.speech.DEFAULT_KWS_MODEL_DIR
-import com.bihe0832.android.lib.speech.getDefaultKeywordSpotterConfig
 import com.bihe0832.android.lib.speech.getDefaultOnlineRecognizerConfig
 import com.bihe0832.android.lib.speech.recognition.ASROfflineManager
 import com.bihe0832.android.lib.speech.recognition.ASROnlineManager
