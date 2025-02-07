@@ -1,5 +1,7 @@
 ## 相关链接
 
+AAF ASR 相关的测试模块，由于模型较大，因此独立判断
+
 - **框架使用：**
 
 	- **运行Demo**：[https://android.bihe0832.com/doc/sample/start.html](https://android.bihe0832.com/doc/sample/start.html)

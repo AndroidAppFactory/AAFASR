@@ -5,15 +5,12 @@ import android.content.Context
 import android.util.Log
 import com.bihe0832.android.app.message.AAFMessageManager
 import com.bihe0832.android.app.router.RouterHelper
-import com.bihe0832.android.common.network.NetworkChangeManager
 import com.bihe0832.android.common.permission.AAFPermissionManager
 import com.bihe0832.android.framework.ZixieContext
 import com.bihe0832.android.framework.ZixieCoreInit
 import com.bihe0832.android.framework.privacy.AgreementPrivacy
-import com.bihe0832.android.lib.device.shake.ShakeManager
 import com.bihe0832.android.lib.download.wrapper.DownloadFileUtils
 import com.bihe0832.android.lib.log.ZLog
-import com.bihe0832.android.lib.network.MobileUtil
 import com.bihe0832.android.lib.thread.ThreadManager
 import com.bihe0832.android.lib.utils.os.BuildUtils
 import com.bihe0832.android.lib.utils.os.ManufacturerUtil
@@ -63,14 +60,7 @@ object AppFactoryInit {
         }
     }
 
-    @Synchronized
-    private fun initExtra(application: android.app.Application) {
-        // 初始化网络变量和监听
-        NetworkChangeManager.init(application.applicationContext, getNetType = true, getSSID = true, getBssID = true)
-        // 监听信号变化，统一到MobileUtil
-        MobileUtil.registerMobileSignalListener(application.applicationContext)
-        ShakeManager.init(application.applicationContext)
-    }
+
 
     fun initAll(application: android.app.Application) {
         if (AgreementPrivacy.hasAgreedPrivacy()) {
@@ -84,14 +74,8 @@ object AppFactoryInit {
                     ZLog.e("Application initCore process: name:" + it.processName + " and id:" + it.pid)
                     val processName = it.processName
                     initCore(application, processName)
-                    if (processName.equals(application.packageName, ignoreCase = true)) {
-                        initExtra(application)
-                    }
                 }
             }
         }
-    }
-
-    fun initUserLoginRetBeforeGetUser(openid: String) {
     }
 }

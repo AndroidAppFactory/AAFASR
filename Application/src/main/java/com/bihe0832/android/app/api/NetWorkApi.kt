@@ -39,14 +39,6 @@ object AAFNetWorkApi {
         return URLUtils.marge(URLUtils.marge("$url", publicPara.toString()), param)
     }
 
-    fun getRetrofit(url: String): Retrofit {
-        return Retrofit.Builder()
-                .client(mHttpClient)
-                .addConverterFactory(GsonConverterFactory())
-                .baseUrl(url)
-                .build()
-    }
-
     fun getRetrofitWithoutJsonParse(url: String): Retrofit {
         return Retrofit.Builder()
                 .client(mHttpClient)
